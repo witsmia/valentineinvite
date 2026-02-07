@@ -2,51 +2,82 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Be My Valentine?</title>
   <style>
-    body { height: 100vh; margin: 0; display: flex; justify-content: center; align-items: center; background: pink; font-family: Arial, sans-serif; text-align: center; }
-    #no { position: absolute; background-color: #555; color: white; }
+    body { 
+      height: 100vh; 
+      margin: 0; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      background: #ffe3ed; 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      text-align: center; 
+      overflow: hidden;
+    }
+    .container { padding: 20px; }
+    h1 { color: #d63384; font-size: 2.5rem; }
+    #no { 
+      position: absolute; 
+      background-color: #6c757d; 
+      color: white; 
+      transition: all 0.1s ease;
+    }
     #yes { background-color: #ff4d6d; color: white; }
-    button { font-size: 1.2rem; padding: 10px 20px; margin: 20px; border: none; border-radius: 8px; cursor: pointer; }
+    button { 
+      font-size: 1.2rem; 
+      padding: 12px 25px; 
+      margin: 10px; 
+      border: none; 
+      border-radius: 50px; 
+      cursor: pointer; 
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .success-msg { color: #ff4d6d; }
   </style>
 </head>
 <body>
 
-  <div id="quiz">
+  <div class="container" id="main-content">
     <h1 id="question">Will you be my Valentine? 💕</h1>
-    <button id="yes" onclick="yesClicked()">Yes 💖</button>
-    <button id="no">No 💔</button>
+    <div style="margin-top: 50px;">
+        <button id="yes" onclick="yesClicked()">Yes 💖</button>
+        <button id="no">No 💔</button>
+    </div>
   </div>
 
   <script>
-    // 1. Get info from the URL (e.g., ?name=Ntando&contact=012345)
-    const urlParams = new URLSearchParams(window.search);
-    const userName = urlParams.get('name') || "Sweetheart";
-    const userContact = urlParams.get('contact') || "No contact provided";
+    // 1. Get the data from the URL correctly
+    const params = new URLSearchParams(window.location.search);
+    const userName = params.get('userName') || "Sweetheart";
+    const userContact = params.get('contact') || "No contact found";
 
-    // 2. Set the dynamic name
+    // 2. Update the heading with the name
     document.getElementById("question").innerText = `${userName}, will you be my Valentine? 💕`;
 
-    // No button logic
+    // 3. The "No" button movement logic
     const noBtn = document.getElementById("no");
-    noBtn.addEventListener("mouseover", () => {
+    noBtn.addEventListener("mouseover", moveButton);
+    noBtn.addEventListener("touchstart", moveButton); // For mobile users
+
+    function moveButton() {
       const x = Math.random() * (window.innerWidth - noBtn.clientWidth);
       const y = Math.random() * (window.innerHeight - noBtn.clientHeight);
       noBtn.style.left = x + "px";
       noBtn.style.top = y + "px";
-    });
+    }
 
-    // 3. Show dynamic contact on Yes
+    // 4. What happens when "Yes" is clicked
     function yesClicked() {
-      document.body.innerHTML = `
-        <div>
-          <h1>YAY!!! 💘🥰</h1>
-          <p>I knew you’d say yes, ${userName}!</p>
-          <p style="margin-top:20px; font-size: 0.9rem; color: #555;">
-             Saved Details: ${userContact}
-          </p>
+      document.getElementById("main-content").innerHTML = `
+        <h1 class="success-msg">YAY!!! 💘🥰</h1>
+        <p style="font-size: 1.5rem;">I knew you’d say yes, <strong>${userName}</strong>!</p>
+        <div style="margin-top:30px; padding: 15px; background: white; border-radius: 15px; display: inline-block;">
+           <p><strong>Contact confirmed:</strong><br>${userContact}</p>
         </div>
       `;
+      document.body.style.background = "#ffb3c1";
     }
   </script>
 </body>
