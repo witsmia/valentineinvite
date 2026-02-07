@@ -52,6 +52,7 @@
     const params = new URLSearchParams(window.location.search);
     const userName = params.get('userName') || "Sweetheart";
     const userContact = params.get('contact') || "No contact found";
+    const userContact = params.get('MatchName') || "Match";
 
     // 2. Update the heading with the name
     document.getElementById("question").innerText = `${userName}, will you be my Valentine? 💕`;
@@ -74,7 +75,7 @@
         <h1 class="success-msg">YAY!!! 💘🥰</h1>
         <p style="font-size: 1.5rem;">I knew you’d say yes, find my WhatsApp number below😌. Happy Valentine <strong>${userName}</strong>!</p>
         <div style="margin-top:30px; padding: 15px; background: white; border-radius: 15px; display: inline-block;">
-           <p><strong>Contact confirmed:</strong><br>${userContact}</p>
+           <p><strong><strong>${MatchName}</strong>!</p>Contact confirmed:</strong><br>${userContact}</p>
         </div>
       `;
       document.body.style.background = "#ffb3c1";
@@ -83,3 +84,4 @@
 </body>
 
 </html>
+
