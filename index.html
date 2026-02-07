@@ -5,36 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Be My Valentine?</title>
   <style>
-    body { 
-      height: 100vh; 
-      margin: 0; 
-      display: flex; 
-      justify-content: center; 
-      align-items: center; 
-      background: #ffe3ed; 
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-      text-align: center; 
-      overflow: hidden;
-    }
+    body { height: 100vh; margin: 0; display: flex; justify-content: center; align-items: center; background: #ffe3ed; font-family: 'Segoe UI', Arial, sans-serif; text-align: center; overflow: hidden; }
     .container { padding: 20px; }
     h1 { color: #d63384; font-size: 2.5rem; }
-    #no { 
-      position: absolute; 
-      background-color: #6c757d; 
-      color: white; 
-      transition: all 0.1s ease;
-    }
-    #yes { background-color: #ff4d6d; color: white; }
-    button { 
-      font-size: 1.2rem; 
-      padding: 12px 25px; 
-      margin: 10px; 
-      border: none; 
-      border-radius: 50px; 
-      cursor: pointer; 
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-    .success-msg { color: #ff4d6d; }
+    #no { position: absolute; background-color: #6c757d; color: white; transition: all 0.1s ease; border-radius: 50px; }
+    #yes { background-color: #ff4d6d; color: white; border-radius: 50px; }
+    button { font-size: 1.2rem; padding: 12px 25px; margin: 10px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
   </style>
 </head>
 <body>
@@ -48,19 +24,16 @@
   </div>
 
   <script>
-    // 1. Get the data from the URL correctly
     const params = new URLSearchParams(window.location.search);
     const userName = params.get('userName') || "Sweetheart";
-    const userContact = params.get('contact') || "No contact found";
-    const userContact = params.get('MatchName') || "Match";
+    const matchName = params.get('matchName') || "Your Match"; // New variable
+    const contact = params.get('contact') || "No contact found";
 
-    // 2. Update the heading with the name
     document.getElementById("question").innerText = `${userName}, will you be my Valentine? 💕`;
 
-    // 3. The "No" button movement logic
     const noBtn = document.getElementById("no");
     noBtn.addEventListener("mouseover", moveButton);
-    noBtn.addEventListener("touchstart", moveButton); // For mobile users
+    noBtn.addEventListener("touchstart", moveButton);
 
     function moveButton() {
       const x = Math.random() * (window.innerWidth - noBtn.clientWidth);
@@ -69,19 +42,17 @@
       noBtn.style.top = y + "px";
     }
 
-    // 4. What happens when "Yes" is clicked
     function yesClicked() {
       document.getElementById("main-content").innerHTML = `
-        <h1 class="success-msg">YAY!!! 💘🥰</h1>
-        <p style="font-size: 1.5rem;">I knew you’d say yes, find my WhatsApp number below😌. Happy Valentine <strong>${userName}</strong>!</p>
-        <div style="margin-top:30px; padding: 15px; background: white; border-radius: 15px; display: inline-block;">
-           <p><strong><strong>${MatchName}</strong>!</p>Contact confirmed:</strong><br>${userContact}</p>
+        <h1 style="color: #ff4d6d;">YAY!!! 💘🥰</h1>
+        <p style="font-size: 1.3rem;">I knew you’d say yes, <strong>${userName}</strong>!</p>
+        <div style="margin-top:30px; padding: 20px; background: white; border-radius: 15px; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+           <p style="margin: 0; color: #555;">Here is <strong>${matchName}'s</strong> contact:</p>
+           <p style="font-size: 1.5rem; color: #d63384; margin-top: 10px;"><strong>${contact}</strong></p>
         </div>
       `;
       document.body.style.background = "#ffb3c1";
     }
   </script>
 </body>
-
 </html>
-
